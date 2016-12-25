@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "C64E4AD02B3E021D50F33A36635B1D5E9B5C8DAC",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "C64E4AD02B3E021D50F33A36635B1D5E9B5C8DAC" : 9223372036854775807,
+    "45DFD1B0C238D6325F3D42A951D07F54AB5DE64E" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "1FAFF8C5-EFED-4AAB-87F5-8B30E2677BCE",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "C64E4AD02B3E021D50F33A36635B1D5E9B5C8DAC" : "FoodArena\/",
+    "45DFD1B0C238D6325F3D42A951D07F54AB5DE64E" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Login_Firebase",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Login_Firebase.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/JoeyZhou1006\/FoodArena",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "45DFD1B0C238D6325F3D42A951D07F54AB5DE64E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/JoeyZhou1006\/FoodWorld.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C64E4AD02B3E021D50F33A36635B1D5E9B5C8DAC"
+    }
+  ]
+}
