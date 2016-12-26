@@ -8,6 +8,8 @@
 
 import Foundation
 import FirebaseDatabase
+import FirebaseAuth
+
 class DataRetrievingModel{
     
     
@@ -42,11 +44,8 @@ class DataRetrievingModel{
             completionHandler(codeRetrieved)
             
         })
-        
-        
-        
+     
     }
-    
 
     
     

@@ -42,6 +42,7 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         self.navigationItem.title = "Configure your Shop"
         
         self.disableAllField()
@@ -64,6 +65,22 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
         print("user uid is \(self.uid)")
     
     }
+    
+    
+    
+    //receive a datepicker as argument and return a string in a format like this: 2:14 pm
+    func getTimeFromDatePicker(Datepicker: UIDatePicker)-> String{
+        
+        var dateFormater = DateFormatter()
+        dateFormater.dateFormat = "HH:mm a"
+        dateFormater.amSymbol = "AM"
+        dateFormater.pmSymbol = "PM"
+        let date = dateFormater.string(from: self.fromTime.date)
+        return date
+        
+    }
+    
+    
     
     
     //disable all field, so user can't change anything unless they click edit button
@@ -150,6 +167,18 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    
+    func submitToFirebase(){
+        
+        if(self.shopImage.image != nil && self.shopDescription.text != nil){
+        
+        
+        }
+    
+    
+    
     }
 
 }
