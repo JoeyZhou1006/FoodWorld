@@ -10,6 +10,8 @@ import UIKit
 
 class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
+    var uid: String?
+    
    
     var edit = false
     
@@ -58,6 +60,8 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
         imageTap = UITapGestureRecognizer(target: self, action: #selector(self.ChooseImage))
        // shopImage.addGestureRecognizer(imageTap)
         
+        
+        print("user uid is \(self.uid)")
     
     }
     

@@ -25,6 +25,8 @@ class SignInViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     
+    var userUID: String!
+    
     
     override func viewWillAppear(_ animated: Bool) {
         activityIndicator.isHidden = true
@@ -66,9 +68,14 @@ class SignInViewController: UIViewController {
                     self.activityIndicator.isHidden = true
                 }
                 else{
+                    
+                    //save retrived user uid to variable to be further delivered to next view
+                    self.userUID = user!.uid
                     self.activityIndicator.stopAnimating()
                     self.activityIndicator.isHidden=true
                     print("user with email address "+user!.email!+"is successfully logged in")
+                    
+                    
                     self.navigateToBusinessUserHomePage()
                     
                 
@@ -93,14 +100,29 @@ class SignInViewController: UIViewController {
         
     }
     
-
-    //temprory function to insert temporary invitation key to the firebase
-//    func insertInvitationCodeToFirebase(){
-//        self.ref.child("InvitationCode").child("Invitation1").setValue("1234")
-//        
-//    }
-//    
     
+    
+    //prepare segue function to send user uid to destination view controller
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+
+        
+        //get tab view controller first
+        let TabController = segue.destination as! UITabBarController
+        
+        //get 3rd navigation controller
+        let ShopSetUpNavController = TabController.viewControllers?[2] as! UINavigationController
+        
+        //get the desired shopsetupcontroller
+        let ShopSetUpController = ShopSetUpNavController.topViewController as! ShopSetUpViewController
+        
+        ShopSetUpController.uid = userUID
+        
+        
+    }
+    
+
+
     
     
     
