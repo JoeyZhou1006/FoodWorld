@@ -10,7 +10,13 @@ import UIKit
 
 class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
+   
+    var edit = false
+    
+    
     let imagePicker = UIImagePickerController()
+    
+    var imageTap = UITapGestureRecognizer()
     
     
    // var imageTap = UITapGestureRecognizer(target: self, action: #selector(self.ChooseImage()))
@@ -18,10 +24,25 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
     @IBOutlet weak var shopDescription: UITextView!
     
     @IBOutlet weak var shopImage: UIImageView!
+    
+    
+    @IBOutlet weak var fromTime: UIDatePicker!
+    
+    @IBOutlet weak var tillTime: UIDatePicker!
+    
+    @IBOutlet weak var minimumDeliver: UITextField!
+    
+    @IBOutlet weak var deliverFee: UITextField!
 
+
+    
+    @IBOutlet weak var editBtn: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "Configure your Shop"
         
+        self.disableAllField()
        
 
         self.setUpFontColor()
@@ -34,13 +55,61 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
         imagePicker.delegate = self
         
         //create tap gesture to call function to present image picker view when user tap the image
-        let imageTap = UITapGestureRecognizer(target: self, action: #selector(self.ChooseImage))
-        shopImage.addGestureRecognizer(imageTap)
+        imageTap = UITapGestureRecognizer(target: self, action: #selector(self.ChooseImage))
+       // shopImage.addGestureRecognizer(imageTap)
         
     
     }
     
     
+    //disable all field, so user can't change anything unless they click edit button
+    func disableAllField(){
+        shopImage.removeGestureRecognizer(imageTap)
+        shopImage.isUserInteractionEnabled = false
+        shopDescription.isUserInteractionEnabled = false
+        fromTime.isUserInteractionEnabled = false
+        tillTime.isUserInteractionEnabled = false
+        minimumDeliver.isUserInteractionEnabled = false
+        deliverFee.isUserInteractionEnabled = false
+       
+  
+    }
+    
+    
+    //enable all field to be editable
+    func enableAllField(){
+        shopImage.addGestureRecognizer(imageTap)
+        shopImage.isUserInteractionEnabled = true
+        shopDescription.isUserInteractionEnabled = true
+        fromTime.isUserInteractionEnabled = true
+        tillTime.isUserInteractionEnabled = true
+        minimumDeliver.isUserInteractionEnabled = true
+        deliverFee.isUserInteractionEnabled = true
+        //submitToFirebase.isUserInteractionEnabled = true
+    
+    }
+    
+    
+    @IBAction func enableUserToEdit(_ sender: Any) {
+        
+        if(edit == true){
+            
+        edit = false
+        editBtn.title = "Save"
+        enableAllField()
+      
+        }
+        else{
+            edit = true
+            editBtn.title = "Edit"
+            disableAllField()
+            //when user finished editing, they are allow to submit their changes
+          
+        }
+        
+    }
+    
+  
     //reaction function when user tap the imageview
     func ChooseImage(gesture: UIPanGestureRecognizer){
         imagePicker.allowsEditing = false
@@ -58,25 +127,10 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
 
     
     }
-    
-    
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    
-//    @IBAction func selectImage(_ sender: Any) {
-//        imagePicker.allowsEditing = false
-//        imagePicker.sourceType = .photoLibrary
-//        
-//        self.present(imagePicker, animated: true, completion: nil)
-//        
-//        
-//    }
-    
     
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -86,25 +140,12 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
             shopImage.image = pickedImage
         
         }
-       
-        
         dismiss(animated: true, completion: nil)
     }
-    
     
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
