@@ -21,6 +21,7 @@
 		62B369F31D81A00D00C619FA /* BusinessInitialProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B369F21D81A00D00C619FA /* BusinessInitialProfileViewController.swift */; };
 		62CF51DE1D8B00F100E7C335 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CF51DD1D8B00F100E7C335 /* InitialViewController.swift */; };
 		681C91CC1E1226D5002F56F5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 681C91CB1E1226D5002F56F5 /* CoreLocation.framework */; };
+		681C91CE1E126431002F56F5 /* ShopInfoSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C91CD1E126431002F56F5 /* ShopInfoSet.swift */; };
 		683E2F561E1025EC00ECA219 /* ShopSetUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E2F551E1025EC00ECA219 /* ShopSetUpViewController.swift */; };
 		68EBC37F1E0C3974000629EE /* DataRetrievingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EBC37E1E0C3974000629EE /* DataRetrievingModel.swift */; };
 		A302B771E064A479D466DD1B /* Pods_Login_Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20462A0C2E602834A31F6AD9 /* Pods_Login_Firebase.framework */; };
@@ -45,6 +46,7 @@
 		62BCAFC01D94F82A00C61835 /* Login_Firebase.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Login_Firebase.entitlements; sourceTree = "<group>"; };
 		62CF51DD1D8B00F100E7C335 /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		681C91CB1E1226D5002F56F5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		681C91CD1E126431002F56F5 /* ShopInfoSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopInfoSet.swift; sourceTree = "<group>"; };
 		683E2F551E1025EC00ECA219 /* ShopSetUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopSetUpViewController.swift; sourceTree = "<group>"; };
 		68EBC37E1E0C3974000629EE /* DataRetrievingModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataRetrievingModel.swift; sourceTree = "<group>"; };
 		957A31B72231D379B0693E51 /* Pods-Login_Firebase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Login_Firebase.release.xcconfig"; path = "Pods/Target Support Files/Pods-Login_Firebase/Pods-Login_Firebase.release.xcconfig"; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				68EBC37E1E0C3974000629EE /* DataRetrievingModel.swift */,
+				681C91CD1E126431002F56F5 /* ShopInfoSet.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 			files = (
 				62ADAEF01D7EE9D20034A3DA /* Login_Firebase.xcdatamodeld in Sources */,
 				62B369ED1D7F056400C619FA /* SignInViewController.swift in Sources */,
+				681C91CE1E126431002F56F5 /* ShopInfoSet.swift in Sources */,
 				683E2F561E1025EC00ECA219 /* ShopSetUpViewController.swift in Sources */,
 				68EBC37F1E0C3974000629EE /* DataRetrievingModel.swift in Sources */,
 				62B369F11D80657B00C619FA /* FoodArenaViewController.swift in Sources */,

@@ -9,16 +9,26 @@ struct Location {
     let latitude: Double
     let longtitude: Double
     
-
 }
+
+
+
 
 
 
 import UIKit
 import CoreLocation
-
+import Firebase
+import FirebaseDatabase
 
 class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate{
+    
+    let tapRecognizer = UITapGestureRecognizer()
+    
+    //link to firebase database
+    let ref = FIRDatabase.database().reference(withPath: "ShopsInformation")
+    
+    
     
     //location manager used to get current address
     let locationManager = CLLocationManager()
@@ -60,6 +70,13 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
     @IBOutlet weak var locateShopBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        self.uid = "123"
+        
+        
+        tapRecognizer.addTarget(self, action: #selector(self.didTapView))
+        self.view.addGestureRecognizer(tapRecognizer)
 
         self.navigationItem.title = "Configure your Shop"
         
@@ -81,6 +98,13 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
         
         
         print("user uid is \(self.uid)")
+    
+    }
+    
+    
+    
+    func didTapView(gesture: UIPanGestureRecognizer){
+        self.view.endEditing(true)
     
     }
     
@@ -110,6 +134,7 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
         tillTime.isUserInteractionEnabled = false
         minimumDeliver.isUserInteractionEnabled = false
         deliverFee.isUserInteractionEnabled = false
+        locateShopBtn.isUserInteractionEnabled = false
        
   
     }
@@ -125,6 +150,9 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
         minimumDeliver.isUserInteractionEnabled = true
         deliverFee.isUserInteractionEnabled = true
         //submitToFirebase.isUserInteractionEnabled = true
+        locateShopBtn.isUserInteractionEnabled = true
+        
+
     
     }
     
@@ -144,6 +172,7 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
             disableAllField()
             //when user finished editing, they are allow to submit their changes
           
+            self.submitToFirebase()
         }
         
     }
@@ -194,15 +223,9 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        
-        
-        
-        
+      
         
     }
-    
-    
-    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Error while updaing location " + error.localizedDescription)
     }
@@ -229,13 +252,43 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
     
     func submitToFirebase(){
         
-        if(self.shopImage.image != nil && self.shopDescription.text != nil){
+        if(self.shopImage.image != nil && self.shopDescription.text != nil && self.minimumDeliver.text != nil && deliverFee.text != nil && self.location != nil){
+            
+            let jpegCompressionQuality: CGFloat = 0.9
+            if let base64String = UIImageJPEGRepresentation(self.shopImage.image!, jpegCompressionQuality)?.base64EncodedString() {
+                // Upload base64String to your database
+                //actions here to submit those information back to the server
+                let shopInfo = ShopInfoSet(shopImage: base64String ,shopDescription: self.shopDescription.text , fromTime: self.getTimeFromDatePicker(Datepicker: self.fromTime), tillTime: self.getTimeFromDatePicker(Datepicker: self.tillTime) , minimumDelivery: self.minimumDeliver.text, deliveryFee: self.deliverFee.text, editByUser: self.uid)
+                
+                
+                
+                 self.ref.child("ShopInformation").setValue(shopInfo.toAnyObject())
+                
+            }else{
+            
+                print("can't convert to string from iamge")
+            }
+            
+         
+            
+            
+          //  let shopInfoRef = self.ref.child("ShopInformation")
+           // shopInfoRef.setValue(shopInfo.toAnyObject())
+            
+   // self.ref.child("ShopInformation").setValue(shopInfo.toAnyObject())
         
+            
+        }
+        else{
+            print("please fill all  the information")
         
         }
     
     
     
     }
+    
+    
+
 
 }

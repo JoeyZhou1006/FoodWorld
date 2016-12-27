@@ -383,10 +383,9 @@
                                     <!--2016-12-24 03:45:00 +0000-->
                                 </date>
                             </datePicker>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UZe-hi-QVD">
-                                <rect key="frame" x="116" y="580" width="121" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UZe-hi-QVD">
+                                <rect key="frame" x="116" y="588" width="143" height="30"/>
+                                <color key="backgroundColor" red="0.47261008888416989" green="0.34958988431465876" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Locate Your Shop">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -406,6 +405,7 @@
                             <constraint firstItem="W0n-YI-hJX" firstAttribute="centerY" secondItem="XA0-wJ-XEq" secondAttribute="centerY" id="9UD-C3-OWd"/>
                             <constraint firstItem="XA0-wJ-XEq" firstAttribute="centerX" secondItem="R3n-LP-oYy" secondAttribute="centerX" id="AP7-c5-hpW"/>
                             <constraint firstItem="MBf-P4-gUs" firstAttribute="leading" secondItem="XA0-wJ-XEq" secondAttribute="trailing" constant="8" id="AP9-AO-axm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="UZe-hi-QVD" secondAttribute="trailing" constant="100" id="BhT-mz-RDG"/>
                             <constraint firstItem="W0n-YI-hJX" firstAttribute="width" secondItem="XA0-wJ-XEq" secondAttribute="width" id="CJk-6z-n77"/>
                             <constraint firstItem="qCw-it-7hq" firstAttribute="centerX" secondItem="g9N-E0-fzH" secondAttribute="centerX" id="GnV-aa-Bz4"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Srw-yY-1wN" secondAttribute="leading" id="Kg9-KV-eZv"/>
@@ -418,10 +418,12 @@
                             <constraint firstItem="IjZ-ye-N80" firstAttribute="centerX" secondItem="Srw-yY-1wN" secondAttribute="centerX" id="XxD-Nc-Rqe"/>
                             <constraint firstItem="qCw-it-7hq" firstAttribute="top" secondItem="scu-7A-f3x" secondAttribute="bottom" id="YO8-Lg-Qxe"/>
                             <constraint firstItem="Zs9-if-Yuf" firstAttribute="top" secondItem="qCw-it-7hq" secondAttribute="bottom" constant="8" id="ZUL-19-gR0"/>
+                            <constraint firstItem="7Pj-LE-9zi" firstAttribute="top" secondItem="UZe-hi-QVD" secondAttribute="bottom" id="agk-re-1IL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="RzH-XN-1RS" secondAttribute="trailing" id="cPG-DC-hKJ"/>
                             <constraint firstItem="R3n-LP-oYy" firstAttribute="centerX" secondItem="p2A-c6-KIh" secondAttribute="centerX" id="gJY-fm-KGG"/>
                             <constraint firstAttribute="trailingMargin" secondItem="p2A-c6-KIh" secondAttribute="trailing" id="gQV-bn-hlk"/>
                             <constraint firstItem="Zs9-if-Yuf" firstAttribute="leading" secondItem="g9N-E0-fzH" secondAttribute="leadingMargin" constant="100" id="jBg-uH-RQY"/>
+                            <constraint firstItem="UZe-hi-QVD" firstAttribute="leading" secondItem="g9N-E0-fzH" secondAttribute="leadingMargin" constant="100" id="jtG-qi-X0U"/>
                             <constraint firstItem="XYn-5x-arX" firstAttribute="top" secondItem="ahQ-ow-6or" secondAttribute="bottom" constant="8" id="kCD-Pw-Yw0"/>
                             <constraint firstItem="XYn-5x-arX" firstAttribute="leading" secondItem="g9N-E0-fzH" secondAttribute="leadingMargin" constant="100" id="khj-lJ-6ci"/>
                             <constraint firstItem="IjZ-ye-N80" firstAttribute="top" secondItem="Srw-yY-1wN" secondAttribute="bottom" constant="15" id="lR1-6R-Zsy"/>
