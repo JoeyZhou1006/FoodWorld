@@ -5,11 +5,28 @@
 //  Created by JoeyZhou on 26/12/16.
 //  Copyright © 2016 Joey Zhou. All rights reserved.
 //
+struct Location {
+    let latitude: Double
+    let longtitude: Double
+    
+
+}
+
+
 
 import UIKit
+import CoreLocation
 
-class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+
+class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate{
     
+    //location manager used to get current address
+    let locationManager = CLLocationManager()
+    
+    var location: Location?
+    
+    
+    //to stored the user unique identifier sent from previous view controller, and we use this to send data back to firebase
     var uid: String?
     
    
@@ -40,6 +57,7 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
     
     @IBOutlet weak var editBtn: UIBarButtonItem!
     
+    @IBOutlet weak var locateShopBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -168,6 +186,45 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
+    
+    
+    @IBAction func LocateShopByLonLat(_ sender: Any) {
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Error while updaing location " + error.localizedDescription)
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        var locValue: CLLocationCoordinate2D = (manager.location?.coordinate)!
+        
+        print("location is \(locValue.latitude) \(locValue.longitude)")
+        
+        self.location = Location(latitude: locValue.latitude, longtitude: locValue.longitude)
+        
+        self.locateShopBtn.isEnabled = false
+        self.locateShopBtn.setTitle("Located", for: .disabled)
+        
+        print(self.location?.latitude)
+        print(self.location?.longtitude)
+        
+        locationManager.stopUpdatingLocation()
+    }
+    
+
     
     
     func submitToFirebase(){

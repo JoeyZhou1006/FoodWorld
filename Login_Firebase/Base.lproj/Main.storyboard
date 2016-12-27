@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11761" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="2Y8-dh-gmy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11761" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="L15-cP-Z2A">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -383,6 +383,17 @@
                                     <!--2016-12-24 03:45:00 +0000-->
                                 </date>
                             </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UZe-hi-QVD">
+                                <rect key="frame" x="116" y="580" width="121" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Locate Your Shop">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="LocateShopByLonLat:" destination="2Y8-dh-gmy" eventType="touchUpInside" id="0fG-3k-0eN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.075916497929999993" green="0.92454663209999999" blue="0.52474471769999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -437,6 +448,7 @@
                         <outlet property="deliverFee" destination="XA0-wJ-XEq" id="EU3-cD-LKV"/>
                         <outlet property="editBtn" destination="4I7-m5-AAr" id="Aeu-OE-MH4"/>
                         <outlet property="fromTime" destination="Srw-yY-1wN" id="6FO-E1-Wye"/>
+                        <outlet property="locateShopBtn" destination="UZe-hi-QVD" id="4cJ-Mj-hRt"/>
                         <outlet property="minimumDeliver" destination="R3n-LP-oYy" id="EcW-tk-jzw"/>
                         <outlet property="shopDescription" destination="ahQ-ow-6or" id="dDg-70-SFh"/>
                         <outlet property="shopImage" destination="Zs9-if-Yuf" id="t8t-oB-Vdo"/>
