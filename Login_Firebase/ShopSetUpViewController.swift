@@ -26,7 +26,7 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
     let tapRecognizer = UITapGestureRecognizer()
     
     //link to firebase database
-    let ref = FIRDatabase.database().reference(withPath: "ShopsInformation")
+    let ref = FIRDatabase.database().reference()
     
     
     
@@ -70,9 +70,70 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
     @IBOutlet weak var locateShopBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        //retrieve value of this user to preload their business page
+        ref.child("Shops").child("test").observeSingleEvent(of: .value, with: {(snapshot) in
+            if snapshot.exists(){
+               
+                let value = snapshot.value as? NSDictionary
+                
+                //configure the shopimage by the retreived data
+                if let imageString = value?["shopImage"] as? String {
+                    print(imageString)
+                    //convert the string to image
+                    
+                    var imageData = Data(base64Encoded: imageString, options: .ignoreUnknownCharacters)
+                    
+                    let image : UIImage = UIImage(data: imageData!)!
+                    self.shopImage.contentMode = .scaleAspectFit
+                    self.shopImage.image = image
+                }
+                
+                if let shopDescption = value?["shopDescription"] as? String {
+                    self.shopDescription.text = shopDescption
+                
+                }
+                
+                if let fromTime = value?["fromTime"]{
+                    
+                
+                 //create formater to convert the retreived date to desired fromat
+                 //so we can assign it to datepicker
+                 var formater = DateFormatter()
+                    formater.dateFormat = "HH:mm"
+                    let date =  formater.date(from: fromTime as! String)
+                    //set the time to retreived code
+                    self.fromTime.setDate(date!, animated: true)
+             
+                }
+                
+                if let tilltime = value?["tillTime"] {
+                    var formater = DateFormatter()
+                        formater.dateFormat = "HH:mm"
+                    let date = formater.date(from: tilltime as! String)
+                    
+                    self.tillTime.setDate(date!, animated: true)
+                
+                
+                }
+                
+                if let mimDelivery = value?["minimumDelivery"]  as? String {
+                    self.minimumDeliver.text = mimDelivery
+                
+                }
+                
+                if let deliverFee = value?["deliveryFee"] as? String {
+                    self.deliverFee.text = deliverFee
+                
+                }
+                
+            }
+            
+        })
         
         
-        self.uid = "123"
+        
+        
+        self.uid = "test"
         
         
         tapRecognizer.addTarget(self, action: #selector(self.didTapView))
@@ -110,18 +171,7 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
     
     
     
-    //receive a datepicker as argument and return a string in a format like this: 2:14 pm
-    func getTimeFromDatePicker(Datepicker: UIDatePicker)-> String{
-        
-        var dateFormater = DateFormatter()
-        dateFormater.dateFormat = "HH:mm a"
-        dateFormater.amSymbol = "AM"
-        dateFormater.pmSymbol = "PM"
-        let date = dateFormater.string(from: self.fromTime.date)
-        return date
-        
-    }
-    
+
     
     
     
@@ -172,6 +222,7 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
             disableAllField()
             //when user finished editing, they are allow to submit their changes
           
+            
             self.submitToFirebase()
         }
         
@@ -232,7 +283,7 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        var locValue: CLLocationCoordinate2D = (manager.location?.coordinate)!
+        let locValue: CLLocationCoordinate2D = (manager.location?.coordinate)!
         
         print("location is \(locValue.latitude) \(locValue.longitude)")
         
@@ -252,32 +303,25 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
     
     func submitToFirebase(){
         
+        print("inside the submit to firebase function")
         if(self.shopImage.image != nil && self.shopDescription.text != nil && self.minimumDeliver.text != nil && deliverFee.text != nil && self.location != nil){
             
-            let jpegCompressionQuality: CGFloat = 0.9
-            if let base64String = UIImageJPEGRepresentation(self.shopImage.image!, jpegCompressionQuality)?.base64EncodedString() {
+            //convert shop image to NSData
+            let resizedImage = self.shopImage.image?.resizeWith(percentage: 0.1)
+           let NSdata = UIImagePNGRepresentation(resizedImage!) as NSData?
+            
+            //convert nsdata to string format
+        let strBase64:String = NSdata!.base64EncodedString(options: .lineLength64Characters)
+    
+                print("all field are not empty and inside if statement")
                 // Upload base64String to your database
                 //actions here to submit those information back to the server
-                let shopInfo = ShopInfoSet(shopImage: base64String ,shopDescription: self.shopDescription.text , fromTime: self.getTimeFromDatePicker(Datepicker: self.fromTime), tillTime: self.getTimeFromDatePicker(Datepicker: self.tillTime) , minimumDelivery: self.minimumDeliver.text, deliveryFee: self.deliverFee.text, editByUser: self.uid)
+                let shopInfo = ShopInfoSet(shopImage:strBase64 ,shopDescription: self.shopDescription.text , fromTime: self.getTimeFromDatePicker(Datepicker: self.fromTime), tillTime: self.getTimeFromDatePicker(Datepicker: self.tillTime) , minimumDelivery: self.minimumDeliver.text, deliveryFee: self.deliverFee.text, editByUser: self.uid)
                 
+    
+                 self.ref.child("Shops").child(self.uid!).setValue(shopInfo.toAnyObject())
                 
-                
-                 self.ref.child("ShopInformation").setValue(shopInfo.toAnyObject())
-                
-            }else{
-            
-                print("can't convert to string from iamge")
-            }
-            
-         
-            
-            
-          //  let shopInfoRef = self.ref.child("ShopInformation")
-           // shopInfoRef.setValue(shopInfo.toAnyObject())
-            
-   // self.ref.child("ShopInformation").setValue(shopInfo.toAnyObject())
-        
-            
+      
         }
         else{
             print("please fill all  the information")
@@ -289,6 +333,42 @@ class ShopSetUpViewController: UIViewController, UIImagePickerControllerDelegate
     }
     
     
+    //receive a datepicker as argument and return a string in a format like this: 2:14 pm
+    func getTimeFromDatePicker(Datepicker: UIDatePicker)-> String{
+        
+        var dateFormater = DateFormatter()
+        dateFormater.dateFormat = "HH:mm"
+        let date = dateFormater.string(from: Datepicker.date)
+        return date
+        
+    }
+    
+    
+    
+}
 
-
+//helper function to resize image to be uploaded to cloud more efficiently
+extension UIImage {
+    func resizeWith(percentage: CGFloat) -> UIImage? {
+        let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: size.width * percentage, height: size.height * percentage)))
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = self
+        UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, scale)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        imageView.layer.render(in: context)
+        guard let result = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
+        UIGraphicsEndImageContext()
+        return result
+    }
+    func resizeWith(width: CGFloat) -> UIImage? {
+        let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))))
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = self
+        UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, scale)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        imageView.layer.render(in: context)
+        guard let result = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
+        UIGraphicsEndImageContext()
+        return result
+    }
 }
